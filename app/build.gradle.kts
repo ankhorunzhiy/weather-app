@@ -12,8 +12,8 @@ android {
     applicationId = "com.petproject.weatherapp"
     minSdk = Versions.MIN_SDK
     targetSdk = Versions.TARGET_SDK
-    versionCode = Versions.versionCode
-    versionName = Versions.versionName
+    versionCode = Versions.VERSION_CODE
+    versionName = Versions.VERSION_NAME
 
     vectorDrawables.useSupportLibrary = true
   }
@@ -46,15 +46,12 @@ android {
 
 dependencies {
 
-  implementation(Libs.CORE_KTX)
+  implementation(project(":features:cities"))
   implementation(Libs.ACTIVITY_KTX)
-
-  //Compose
   implementation(Libs.ACTIVITY_COMPOSE)
   implementation(Libs.COMPOSE_MATERIAL)
   implementation(Libs.COMPOSE_RUNTIME)
   implementation(Libs.COMPOSE_TOOLING)
-  implementation(Libs.COMPOSE_TOOLING_PREVIEW)
 
   //Hilt
   implementation(Libs.HILT_ANDROID)
