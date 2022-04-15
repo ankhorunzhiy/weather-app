@@ -27,12 +27,16 @@ android {
 }
 
 dependencies {
+  implementation(project(":features:cities:domain"))
+  implementation(project(":common:flowui"))
   //Compose
   implementation(Libs.ACTIVITY_COMPOSE)
   implementation(Libs.CORE_KTX)
   implementation(Libs.COMPOSE_RUNTIME)
   implementation(Libs.COMPOSE_TOOLING_PREVIEW)
   implementation(Libs.COMPOSE_MATERIAL)
+  //Coroutines
+  implementation(Libs.COROUTINES)
   //ViewModel
   implementation(Libs.VIEWMODEL_COMPOSE)
   //Hilt

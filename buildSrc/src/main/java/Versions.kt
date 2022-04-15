@@ -27,10 +27,5 @@ object Versions {
     const val COMPOSE = "1.1.1"
     const val KOTLIN = "1.6.10"
     const val HILT = "2.41"
-    const val VIEWMODEL_COMPOSE = "2.4.1"
 
-    const val KTX_ACTIVITY = "1.4.0"
-    const val KTX_CORE = "1.7.0"
-
-    const val COROUTINES_CORE = "1.6.1"
 }
