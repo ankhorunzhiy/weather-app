@@ -1,0 +1,1 @@
+/Users/anton/Work/WeatherApp/buildSrc/build/classes/kotlin/main/Libs.class:/Users/anton/Work/WeatherApp/buildSrc/build/classes/kotlin/main/Versions.class
