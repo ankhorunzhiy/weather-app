@@ -18,3 +18,8 @@ allprojects {
     mavenCentral()
   }
 }
+
+tasks.withType<KotlinCompile>().configureEach {
+  kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
+  kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi"
+}

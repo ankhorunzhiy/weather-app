@@ -7,13 +7,15 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.lang.IllegalStateException
 
 class CitiesUseCase constructor(
   dispatcher: CoroutineDispatcher,
-  private val citiesRepository: CitiesRepository): FlowUseCase<Unit, Collection<String>>(dispatcher) {
+  private val citiesRepository: CitiesRepository): UseCase<Unit, Collection<String>>(dispatcher) {
 
-  override fun execute(parameters: Unit): Flow<Result<Collection<String>>> = flow {
+  override suspend fun execute(parameters: Unit): Collection<String> {
+    // Emit network
     delay(2000)
-    emit(Result.Success(citiesRepository.getCities()))
+    return citiesRepository.getCities()
   }
 }

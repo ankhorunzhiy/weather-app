@@ -5,5 +5,6 @@ include(":app",
   ":common",
   ":common:usecase",
   ":common:flowui",
+  ":common:flowbinding",
   ":common:dispatchers"
 )

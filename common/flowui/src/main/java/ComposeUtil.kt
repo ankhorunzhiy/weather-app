@@ -8,7 +8,7 @@ import androidx.lifecycle.flowWithLifecycle
 import kotlinx.coroutines.flow.Flow
 
 @Composable
-fun <T> rememberFlowWithLifecycle(
+fun <T> rememberWithLifecycle(
   flow: Flow<T>,
   lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
   minActiveState: Lifecycle.State = Lifecycle.State.STARTED
