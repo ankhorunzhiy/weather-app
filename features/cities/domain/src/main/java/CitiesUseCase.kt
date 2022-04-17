@@ -1,21 +1,14 @@
 package com.petproject.weatherapp.cities.domain
 
-import com.google.samples.apps.iosched.shared.domain.FlowUseCase
-import com.google.samples.apps.iosched.shared.domain.Result
-import com.google.samples.apps.iosched.shared.domain.UseCase
+import com.petproject.weatherapp.cities.domain.model.City
+import com.petproject.weatherapp.common.usecase.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import java.lang.IllegalStateException
 
 class CitiesUseCase constructor(
   dispatcher: CoroutineDispatcher,
-  private val citiesRepository: CitiesRepository): UseCase<Unit, Collection<String>>(dispatcher) {
+  private val citiesRepository: CitiesRepository): UseCase<String, Collection<City>>(dispatcher) {
 
-  override suspend fun execute(parameters: Unit): Collection<String> {
-    // Emit network
-//    delay(2000)
-    return citiesRepository.getCities()
+  override suspend fun execute(parameters: String): Collection<City> {
+    return citiesRepository.getCities(parameters)
   }
 }

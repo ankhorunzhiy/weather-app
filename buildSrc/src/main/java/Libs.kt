@@ -31,4 +31,9 @@ object Libs {
     const val HILT_CORE_COMPILER = "com.google.dagger:hilt-compiler:2.38"
     const val VIEWMODEL_COMPOSE = "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
     const val LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
+    const val RETROFIT_SERIALIZATION = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    const val OKHTTP = "com.squareup.okhttp3:okhttp:4.9.3"
+    const val OKHTTP_LOGGER = "com.squareup.okhttp3:logging-interceptor:4.9.3"
+    const val SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2"
 }

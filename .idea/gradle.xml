@@ -18,9 +18,11 @@
             <option value="$PROJECT_DIR$/common/dispatchers/di" />
             <option value="$PROJECT_DIR$/common/flowbinding" />
             <option value="$PROJECT_DIR$/common/flowui" />
+            <option value="$PROJECT_DIR$/common/network" />
             <option value="$PROJECT_DIR$/common/usecase" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/cities" />
+            <option value="$PROJECT_DIR$/features/cities/data" />
             <option value="$PROJECT_DIR$/features/cities/domain" />
           </set>
         </option>

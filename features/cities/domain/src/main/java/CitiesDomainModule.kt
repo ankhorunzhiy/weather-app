@@ -14,10 +14,6 @@ internal class CitiesDomainModule {
 
   @Singleton
   @Provides
-  fun provideRepository(): CitiesRepository = FakeCitiesRepository()
-
-  @Singleton
-  @Provides
   fun provideUseCase(
     @IoDispatcher dispatcher: CoroutineDispatcher,
     repo: CitiesRepository

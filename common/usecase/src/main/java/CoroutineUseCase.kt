@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.iosched.shared.domain
+package com.petproject.weatherapp.common.usecase
 
-import com.google.samples.apps.iosched.shared.domain.Result.Success
+import com.petproject.weatherapp.common.usecase.Result.Success
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 

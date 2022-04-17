@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.iosched.shared.domain
+package com.petproject.weatherapp.common.usecase
 
-import com.google.samples.apps.iosched.shared.domain.Result.Success
+import com.petproject.weatherapp.common.usecase.Result.Success
 
 /**
  * A generic class that holds a value with its loading status.

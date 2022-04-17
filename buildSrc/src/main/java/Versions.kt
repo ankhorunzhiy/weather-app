@@ -21,7 +21,7 @@ object Versions {
 
     const val COMPILE_SDK = 32
     const val TARGET_SDK = 32
-    const val MIN_SDK = 21
+    const val MIN_SDK = 23
 
     const val ANDROID_GRADLE_PLUGIN = "7.1.1"
     const val COMPOSE = "1.1.1"
