@@ -27,7 +27,8 @@ object Libs {
     const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
     const val HILT_ANDROID = "com.google.dagger:hilt-android:2.41"
     const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:2.41"
+    const val HILT_CORE = "com.google.dagger:hilt-core:2.41"
+    const val HILT_CORE_COMPILER = "com.google.dagger:hilt-compiler:2.38"
     const val VIEWMODEL_COMPOSE = "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
     const val LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
-    const val JAVAX = "javax.inject:javax.inject:1"
 }

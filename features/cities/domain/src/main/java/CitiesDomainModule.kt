@@ -1,7 +1,5 @@
 package com.petproject.weatherapp.cities.domain
 
-import com.petproject.weatherapp.cities.domain.CitiesRepository
-import com.petproject.weatherapp.cities.domain.CitiesUseCase
 import com.petproject.weatherapp.common.dispatchers.IoDispatcher
 import dagger.Module
 import dagger.Provides

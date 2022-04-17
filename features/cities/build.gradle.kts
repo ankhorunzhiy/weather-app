@@ -30,6 +30,7 @@ dependencies {
   implementation(project(":features:cities:domain"))
   implementation(project(":common:flowui"))
   implementation(project(":common:flowbinding"))
+  implementation(project(":common:dispatchers:di"))
   //Compose
   implementation(Libs.ACTIVITY_COMPOSE)
   implementation(Libs.CORE_KTX)
