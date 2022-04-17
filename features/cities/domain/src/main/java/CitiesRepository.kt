@@ -9,6 +9,6 @@ interface CitiesRepository {
 internal class FakeCitiesRepository : CitiesRepository {
 
   override suspend fun getCities(): Collection<String> {
-    return listOf("Kiev", "Kharkov", "Mariupol", "Melitopol", "Lviv", "Odessa")
+    return listOf("Kiev", "Kharkov", "Mariupol", "Melitopol", "Lviv", "Odessa", "Donetsk", "Izum", "Kharkiv", "Kherson", "Volnovakha", "Sumy")
   }
 }

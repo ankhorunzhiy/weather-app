@@ -15,7 +15,7 @@ class CitiesUseCase constructor(
 
   override suspend fun execute(parameters: Unit): Collection<String> {
     // Emit network
-    delay(2000)
+//    delay(2000)
     return citiesRepository.getCities()
   }
 }
