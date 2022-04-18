@@ -1,8 +1,14 @@
 include(":app",
   ":features",
+
   ":features:cities",
   ":features:cities:domain",
   ":features:cities:data",
+
+  ":features:weather",
+  ":features:weather:domain",
+  ":features:weather:data",
+
   ":common",
   ":common:network",
   ":common:usecase",
@@ -10,4 +16,5 @@ include(":app",
   ":common:flowbinding",
   ":common:dispatchers",
   ":common:dispatchers:di",
+  ":common:navigation"
 )

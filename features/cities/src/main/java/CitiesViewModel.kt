@@ -1,5 +1,7 @@
 package com.petproject.weatherapp.cities
 
+import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.petproject.weatherapp.cities.domain.CitiesUseCase
@@ -25,8 +27,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CitiesViewModel @Inject constructor(
+  handle: SavedStateHandle,
   private val citiesUseCase: CitiesUseCase
 ) : ViewModel() {
+
+  init {
+    Log.d("", "$handle")
+  }
 
   private val citiesChangesInternal by lazy { MutableStateFlow("") }
   // Used to re-run flows on command
@@ -45,6 +52,7 @@ class CitiesViewModel @Inject constructor(
 
   val citiesChanges = citiesChangesInternal.asStateFlow()
 
+  // implement when pull to refresh will added
   fun refresh() {
     viewModelScope.launch { refreshSignal.emit(Unit) }
   }

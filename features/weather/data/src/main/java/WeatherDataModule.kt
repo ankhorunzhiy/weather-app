@@ -1,6 +1,6 @@
 package com.petproject.weatherapp.cities.data
 
-import com.petproject.weatherapp.cities.domain.CitiesRepository
+import com.petproject.weatherapp.cities.domain.WeatherRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,14 +11,14 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object CitiesDataModule {
+internal object WeatherDataModule {
 
   @Provides
-  fun provideApi(retrofit: Retrofit): CitiesApi = retrofit.create()
+  fun provideApi(retrofit: Retrofit): WeatherApi = retrofit.create()
 
   @Singleton
   @Provides
-  fun provideRepository(api: CitiesApi): CitiesRepository =
-    GeoCitiesRepository(api)
+  fun provideRepository(api: WeatherApi): WeatherRepository =
+    RemoteWeatherRepository(api)
 
 }

@@ -21,11 +21,10 @@ android {
 }
 
 dependencies {
-  implementation(project(":features:cities:data"))
+  implementation(project(":features:weather:data"))
   implementation(project(":common:flowui"))
   implementation(project(":common:flowbinding"))
   implementation(project(":common:dispatchers:di"))
-  implementation(project(":common:navigation"))
   //Compose
   implementation(Libs.ACTIVITY_COMPOSE)
   implementation(Libs.CORE_KTX)

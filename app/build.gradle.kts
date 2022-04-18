@@ -47,11 +47,13 @@ android {
 dependencies {
 
   implementation(project(":features:cities"))
+  implementation(project(":features:weather"))
   implementation(Libs.ACTIVITY_KTX)
   implementation(Libs.ACTIVITY_COMPOSE)
   implementation(Libs.COMPOSE_MATERIAL)
   implementation(Libs.COMPOSE_RUNTIME)
   implementation(Libs.COMPOSE_TOOLING)
+  implementation(Libs.COMPOSE_NAVIGATION)
 
   //Hilt
   implementation(Libs.HILT_ANDROID)

@@ -9,8 +9,15 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
+import androidx.navigation.NavType.ParcelableType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.petproject.weatherapp.cities.CitiesScreen
 import com.petproject.weatherapp.ui.theme.WeatherAppTheme
+import com.petproject.weatherapp.weather.WeatherScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,9 +26,12 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     setContent {
       WeatherAppTheme {
-        // A surface container using the 'background' color from the theme
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-          CitiesScreen()
+          val navController = rememberNavController()
+          NavHost(navController = navController, startDestination = "cities") {
+            composable("cities") { CitiesScreen(navController = navController) }
+            composable("weather") { WeatherScreen() }
+          }
         }
       }
     }

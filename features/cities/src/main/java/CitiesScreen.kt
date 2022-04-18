@@ -1,15 +1,14 @@
 package com.petproject.weatherapp.cities
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -19,21 +18,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.petproject.weatherapp.cities.domain.model.City
 import com.petproject.weatherapp.common.flowui.rememberWithLifecycle
+import com.petproject.weatherapp.common.navigation.navigate
 import com.petproject.weatherapp.common.usecase.dataOr
 import com.petproject.weatherapp.common.usecase.succeeded
 
 @Composable
-fun CitiesScreen(viewModel: CitiesViewModel = viewModel()) {
+fun CitiesScreen(viewModel: CitiesViewModel = hiltViewModel(), navController: NavController) {
   val uiState by rememberWithLifecycle(viewModel.uiState).collectAsState(CitiesUiModel(isLoading = true))
   when {
     uiState.isLoading -> StateLoading()
-    uiState.cities.succeeded -> StateCitiesContent(uiState.cities.dataOr(emptyList()), viewModel)
+    uiState.cities.succeeded -> StateCitiesContent(uiState.cities.dataOr(emptyList()), viewModel, navController)
     else -> StateError(viewModel)
   }
 }
@@ -45,11 +45,16 @@ private fun StateLoading() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun StateCitiesContent(items: Collection<City>, viewModel: CitiesViewModel) {
+private fun StateCitiesContent(items: Collection<City>, viewModel: CitiesViewModel, navController: NavController) {
   Column {
     StateHeader(viewModel)
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
-      items(items.toList()) { city -> Text(text = listOf(city.name, city.country).joinToString(), fontSize = 20.sp, color = Color.DarkGray, modifier = Modifier.padding(20.dp, 10.dp))}
+      items(items.toList()) { city -> Text(text = listOf(city.name, city.country).joinToString(),
+        fontSize = 20.sp, color = Color.DarkGray,
+        modifier = Modifier.padding(20.dp, 10.dp).clickable {
+          navController.navigate(route = "weather", args = city.asBundle)
+        })
+      }
     }
   }
 }

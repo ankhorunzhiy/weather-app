@@ -18,12 +18,16 @@
             <option value="$PROJECT_DIR$/common/dispatchers/di" />
             <option value="$PROJECT_DIR$/common/flowbinding" />
             <option value="$PROJECT_DIR$/common/flowui" />
+            <option value="$PROJECT_DIR$/common/navigation" />
             <option value="$PROJECT_DIR$/common/network" />
             <option value="$PROJECT_DIR$/common/usecase" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/cities" />
             <option value="$PROJECT_DIR$/features/cities/data" />
             <option value="$PROJECT_DIR$/features/cities/domain" />
+            <option value="$PROJECT_DIR$/features/weather" />
+            <option value="$PROJECT_DIR$/features/weather/data" />
+            <option value="$PROJECT_DIR$/features/weather/domain" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

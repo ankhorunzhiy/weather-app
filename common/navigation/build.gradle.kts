@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("kapt")
 }
 
 android {
@@ -14,6 +13,5 @@ android {
 }
 
 dependencies {
-    implementation(Libs.KOTLIN_STDLIB)
-    implementation(Libs.COROUTINES)
+    implementation(Libs.COMPOSE_NAVIGATION)
 }

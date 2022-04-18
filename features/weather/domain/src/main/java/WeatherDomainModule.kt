@@ -10,13 +10,13 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object CitiesDomainModule {
+internal object WeatherDomainModule {
 
   @Singleton
   @Provides
   fun provideUseCase(
     @IoDispatcher dispatcher: CoroutineDispatcher,
-    repo: CitiesRepository
-  ): CitiesUseCase = CitiesUseCase(dispatcher, repo)
+    repo: WeatherRepository
+  ): WeatherUseCase = WeatherUseCase(dispatcher, repo)
 
 }
