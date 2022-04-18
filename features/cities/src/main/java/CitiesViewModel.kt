@@ -10,10 +10,15 @@ import com.petproject.weatherapp.common.usecase.Result.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,6 +28,7 @@ class CitiesViewModel @Inject constructor(
   private val citiesUseCase: CitiesUseCase
 ) : ViewModel() {
 
+  private val citiesChangesInternal by lazy { MutableStateFlow("") }
   // Used to re-run flows on command
   private val refreshSignal = MutableSharedFlow<Unit>()
   // Used to run flows on init and also on command
@@ -31,13 +37,20 @@ class CitiesViewModel @Inject constructor(
     emitAll(refreshSignal)
   }
 
-  val uiState: StateFlow<CitiesUiModel> = loadDataSignal.mapLatest {
-    CitiesUiModel(isLoading = false, cities = citiesUseCase("London"))
-  }.stateIn(viewModelScope, WhileViewSubscribed, CitiesUiModel(isLoading = true))
+  val uiState: StateFlow<CitiesUiModel> = merge(
+    loadDataSignal,
+    citiesChangesInternal.debounce(500)
+  ).mapLatest { CitiesUiModel(isLoading = false, cities = citiesUseCase(citiesChangesInternal.value)) }
+  .stateIn(viewModelScope, WhileViewSubscribed, CitiesUiModel(isLoading = true))
+
+  val citiesChanges = citiesChangesInternal.asStateFlow()
 
   fun refresh() {
     viewModelScope.launch { refreshSignal.emit(Unit) }
   }
+
+  fun setCityName(name: String) = name.let(citiesChangesInternal::value::set)
+
 }
 
 

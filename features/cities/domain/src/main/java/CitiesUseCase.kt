@@ -9,6 +9,7 @@ class CitiesUseCase constructor(
   private val citiesRepository: CitiesRepository): UseCase<String, Collection<City>>(dispatcher) {
 
   override suspend fun execute(parameters: String): Collection<City> {
+    if (parameters.length < 3) return emptyList()
     return citiesRepository.getCities(parameters)
   }
 }

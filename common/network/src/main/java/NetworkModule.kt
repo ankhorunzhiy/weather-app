@@ -17,7 +17,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-internal class NetworkModule {
+internal object NetworkModule {
 
   @OptIn(ExperimentalSerializationApi::class)
   @Singleton

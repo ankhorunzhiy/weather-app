@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
 class ApiCity(
   @SerialName("name")
   val name: String,
+  @SerialName("country")
+  val country: String,
   @SerialName("lat")
   val lat: Double,
   @SerialName("lon")

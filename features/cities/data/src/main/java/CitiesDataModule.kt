@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class CitiesDataModule {
+internal object CitiesDataModule {
 
   @Provides
   fun provideApi(retrofit: Retrofit): CitiesApi = retrofit.create()
