@@ -2,9 +2,14 @@ package com.petproject.weatherapp.cities
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,9 +20,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextAlign.Companion
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,7 +40,7 @@ import com.petproject.weatherapp.common.usecase.succeeded
 fun CitiesScreen(viewModel: CitiesViewModel = hiltViewModel(), navController: NavController) {
   val uiState by rememberWithLifecycle(viewModel.uiState).collectAsState(CitiesUiModel(isLoading = true))
   when {
-    uiState.isLoading -> StateLoading()
+    uiState.isLoading ->StateLoading()
     uiState.cities.succeeded -> StateCitiesContent(uiState.cities.dataOr(emptyList()), viewModel, navController)
     else -> StateError(viewModel)
   }
@@ -40,7 +48,10 @@ fun CitiesScreen(viewModel: CitiesViewModel = hiltViewModel(), navController: Na
 
 @Composable
 private fun StateLoading() {
-  CircularProgressIndicator(Modifier.wrapContentHeight().wrapContentWidth())
+  Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+    CircularProgressIndicator(Modifier.width(50.dp).height(50.dp))
+  }
+
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -51,9 +62,9 @@ private fun StateCitiesContent(items: Collection<City>, viewModel: CitiesViewMod
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
       items(items.toList()) { city -> Text(text = listOf(city.name, city.country).joinToString(),
         fontSize = 20.sp, color = Color.DarkGray,
-        modifier = Modifier.padding(20.dp, 10.dp).clickable {
-          navController.navigate(route = "weather", args = city.asBundle)
-        })
+        modifier = Modifier
+          .padding(20.dp, 10.dp)
+          .clickable { navController.navigate(route = "weather", args = city.asBundle) })
       }
     }
   }
@@ -61,12 +72,18 @@ private fun StateCitiesContent(items: Collection<City>, viewModel: CitiesViewMod
 
 @Composable
 private fun StateError(viewModel: CitiesViewModel) {
-  Column {
+  Column(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
     StateHeader(viewModel)
-    Text(text = "Oooops, something went wrong",
-      fontSize = 28.sp,
-      textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()
-    )
+    Box(
+      contentAlignment = Alignment.Center,
+      modifier = Modifier.fillMaxSize()
+    ) {
+      Text(text = "Oooops, something went wrong",
+        fontSize = 28.sp,
+        textAlign = Companion.Center,
+        modifier = Modifier.fillMaxWidth()
+      )
+    }
   }
 }
 
