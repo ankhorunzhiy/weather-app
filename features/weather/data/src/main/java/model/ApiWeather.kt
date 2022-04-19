@@ -5,12 +5,32 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class ApiWeather(
+  @SerialName("main")
+  val main: ApiMain,
+  @SerialName("visibility")
+  val visibility: Int,
+  @SerialName("wind")
+  val wind: ApiWind,
   @SerialName("name")
-  val name: String,
-  @SerialName("country")
-  val country: String,
-  @SerialName("lat")
-  val lat: Double,
-  @SerialName("lon")
-  val lon: Double,
-)
+  val name: String
+) {
+  @Serializable
+  class ApiMain(
+    @SerialName("temp")
+    val temp: Double ,
+    @SerialName("feels_like")
+    val feels_like: Double,
+    @SerialName("temp_min")
+    val temp_min: Double,
+    @SerialName("temp_max")
+    val temp_max: Double,
+    @SerialName("pressure")
+    val pressure: Int
+  )
+
+  @Serializable
+  class ApiWind(
+    @SerialName("speed")
+    val speed: Double
+  )
+}

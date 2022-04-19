@@ -1,8 +1,7 @@
-package com.petproject.weatherapp.cities.domain
+package com.petproject.weatherapp.cities.data.datasource
 
 import com.petproject.weatherapp.cities.domain.model.Weather
-import kotlinx.coroutines.flow.Flow
 
-interface WeatherRepository {
+internal interface WeatherDataSource {
   suspend fun getWeather(lat: Double, lon: Double): Weather
 }

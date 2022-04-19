@@ -8,6 +8,6 @@ import retrofit2.http.Query
 
 interface WeatherApi {
 
-  @GET("/geo/1.0/direct")
-  suspend fun getCities(@Query("q") query: String, @Query("limit") limit: Int = 20): Collection<ApiWeather>
+  @GET("/data/2.5/weather")
+  suspend fun getWeather(@Query("lat") lat: Double, @Query("lon") lon: Double): ApiWeather
 }

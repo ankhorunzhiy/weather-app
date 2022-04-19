@@ -31,10 +31,6 @@ class CitiesViewModel @Inject constructor(
   private val citiesUseCase: CitiesUseCase
 ) : ViewModel() {
 
-  init {
-    Log.d("", "$handle")
-  }
-
   private val citiesChangesInternal by lazy { MutableStateFlow("") }
   // Used to re-run flows on command
   private val refreshSignal = MutableSharedFlow<Unit>()
