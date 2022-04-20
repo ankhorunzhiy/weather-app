@@ -12,8 +12,17 @@ class ApiWeather(
   @SerialName("wind")
   val wind: ApiWind,
   @SerialName("name")
-  val name: String
+  val name: String,
+  @SerialName("coord")
+  val coord: ApiCoord
 ) {
+  @Serializable
+  class ApiCoord(
+    @SerialName("lon")
+    val lon: Double,
+    @SerialName("lat")
+    val lat: Double,
+  )
   @Serializable
   class ApiMain(
     @SerialName("temp")

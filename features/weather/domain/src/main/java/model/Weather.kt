@@ -8,5 +8,7 @@ data class Weather(
   val pressure: Int,
   val visibility: Int,
   val windSpeed: Double,
-  val name: String
+  val name: String,
+  val lat: Double,
+  val lon: Double
 )

@@ -15,7 +15,9 @@ internal class RemoteWeatherDataSource(private val api: WeatherApi) : WeatherDat
       pressure = api.main.pressure,
       visibility = api.visibility,
       windSpeed = api.wind.speed,
-      name = api.name
+      name = api.name,
+      lat = api.coord.lat,
+      lon = api.coord.lon
     )
   }
 
