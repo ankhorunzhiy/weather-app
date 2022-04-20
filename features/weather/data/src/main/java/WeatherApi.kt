@@ -1,6 +1,6 @@
-package com.petproject.weatherapp.cities.data
+package com.petproject.weatherapp.weather.data
 
-import com.petproject.weatherapp.cities.data.model.ApiWeather
+import com.petproject.weatherapp.weather.data.model.ApiWeather
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path

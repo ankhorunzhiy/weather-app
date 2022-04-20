@@ -1,6 +1,5 @@
 package com.petproject.weatherapp.weather
 
-import android.util.Log
 import androidx.compose.foundation.gestures.Orientation.Vertical
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
@@ -19,16 +18,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.petproject.weatherapp.cities.domain.model.Weather
 import com.petproject.weatherapp.common.flowui.rememberWithLifecycle
-import com.petproject.weatherapp.common.usecase.Result.Success
 import com.petproject.weatherapp.common.usecase.data
-import com.petproject.weatherapp.common.usecase.succeeded
 import com.petproject.weatherapp.weather.WeatherUIModel.Content
 import com.petproject.weatherapp.weather.WeatherUIModel.Loading
 
@@ -56,15 +51,15 @@ private fun StateWeatherContent(state: Content) {
 
 @Composable
 private fun StateWeatherSuccess(city: String, country: String, weather: Weather) {
-  Column(modifier = Modifier.scrollable(state = rememberScrollState(0), Vertical)) {
-    Text(text = "Current weather in ${listOf(city, country).joinToString()}", fontSize = 24.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp))
-    Text(text = "Temperature: ${weather.temp}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp))
-    Text(text = "Feels like: ${weather.feelsLike}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp))
-    Text(text = "Minimum temperature: ${weather.tempMin}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp))
-    Text(text = "Maximum temperature: ${weather.tempMax}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp))
-    Text(text = "Pressure: ${weather.pressure}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp))
-    Text(text = "Visibility: ${weather.visibility}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp))
-    Text(text = "Wind: ${weather.wind.speed}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp))
+  LazyColumn {
+    item { Text(text = "Current weather in ${listOf(city, country).joinToString()}", fontSize = 24.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp)) }
+    item { Text(text = "Temperature: ${weather.temperature}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp)) }
+    item { Text(text = "Feels like: ${weather.feelsLike}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp)) }
+    item { Text(text = "Minimum temperature: ${weather.tempMin}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp)) }
+    item { Text(text = "Maximum temperature: ${weather.tempMax}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp)) }
+    item { Text(text = "Pressure: ${weather.pressure}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp)) }
+    item { Text(text = "Visibility: ${weather.visibility}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp)) }
+    item { Text(text = "Wind: ${weather.windSpeed}", fontSize = 18.sp, modifier = Modifier.fillMaxWidth().padding(16.dp, 8.dp)) }
   }
 }
 

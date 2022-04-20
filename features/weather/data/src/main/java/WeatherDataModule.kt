@@ -1,9 +1,10 @@
-package com.petproject.weatherapp.cities.data
+package com.petproject.weatherapp.weather.data
 
-import com.petproject.weatherapp.cities.data.datasource.LocalWeatherDataSource
-import com.petproject.weatherapp.cities.data.datasource.RemoteWeatherDataSource
-import com.petproject.weatherapp.cities.data.datasource.WeatherDataSource
 import com.petproject.weatherapp.cities.domain.WeatherRepository
+import com.petproject.weatherapp.weather.data.DefaultWeatherRepository
+import com.petproject.weatherapp.weather.data.datasource.LocalWeatherDataSource
+import com.petproject.weatherapp.weather.data.datasource.RemoteWeatherDataSource
+import com.petproject.weatherapp.weather.data.datasource.WeatherDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

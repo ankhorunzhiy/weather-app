@@ -1,4 +1,4 @@
-package com.petproject.weatherapp.cities.data.datasource
+package com.petproject.weatherapp.weather.data.datasource
 
 import com.petproject.weatherapp.cities.domain.model.Weather
 import java.lang.IllegalStateException

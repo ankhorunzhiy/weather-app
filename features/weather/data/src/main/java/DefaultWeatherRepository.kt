@@ -1,8 +1,8 @@
-package com.petproject.weatherapp.cities.data
+package com.petproject.weatherapp.weather.data
 
-import com.petproject.weatherapp.cities.data.datasource.WeatherDataSource
 import com.petproject.weatherapp.cities.domain.WeatherRepository
 import com.petproject.weatherapp.cities.domain.model.Weather
+import com.petproject.weatherapp.weather.data.datasource.WeatherDataSource
 import kotlinx.coroutines.delay
 import java.lang.IllegalStateException
 import javax.inject.Inject

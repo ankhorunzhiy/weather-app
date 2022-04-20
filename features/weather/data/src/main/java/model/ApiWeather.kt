@@ -1,4 +1,4 @@
-package com.petproject.weatherapp.cities.data.model
+package com.petproject.weatherapp.weather.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
