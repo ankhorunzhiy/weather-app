@@ -15,7 +15,8 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/dispatchers" />
-            <option value="$PROJECT_DIR$/common/dispatchers/di" />
+            <option value="$PROJECT_DIR$/common/dispatchers/android" />
+            <option value="$PROJECT_DIR$/common/dispatchers/core" />
             <option value="$PROJECT_DIR$/common/flowbinding" />
             <option value="$PROJECT_DIR$/common/flowui" />
             <option value="$PROJECT_DIR$/common/navigation" />

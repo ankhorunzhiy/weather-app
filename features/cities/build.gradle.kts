@@ -24,7 +24,7 @@ dependencies {
   implementation(project(":features:cities:data"))
   implementation(project(":common:flowui"))
   implementation(project(":common:flowbinding"))
-  implementation(project(":common:dispatchers:di"))
+  implementation(project(":common:dispatchers:core"))
   implementation(project(":common:navigation"))
   //Compose
   implementation(Libs.ACTIVITY_COMPOSE)

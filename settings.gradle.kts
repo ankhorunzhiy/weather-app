@@ -15,6 +15,7 @@ include(":app",
   ":common:flowui",
   ":common:flowbinding",
   ":common:dispatchers",
-  ":common:dispatchers:di",
+  ":common:dispatchers:android",
+  ":common:dispatchers:core",
   ":common:navigation"
 )
