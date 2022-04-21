@@ -2,9 +2,12 @@ package com.petproject.weatherapp.cities
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.Vertical
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +24,7 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Snackbar
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -59,7 +63,10 @@ fun CitiesScreen(viewModel: CitiesViewModel = hiltViewModel(), navController: Na
 @Composable
 private fun StateLoading() {
   Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
-    CircularProgressIndicator(Modifier.width(50.dp).height(50.dp))
+    CircularProgressIndicator(
+      Modifier
+        .width(50.dp)
+        .height(50.dp))
   }
 
 }
@@ -70,11 +77,10 @@ private fun StateCitiesContent(items: Collection<City>, viewModel: CitiesViewMod
   Column {
     StateHeader(viewModel)
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
-      items(items.toList()) { city -> Text(text = listOf(city.name, city.country).joinToString(),
-        fontSize = 20.sp, color = Color.DarkGray,
-        modifier = Modifier
-          .padding(20.dp, 10.dp)
-          .clickable { navController.navigate(route = "weather", args = city.asBundle) })
+      items(items.toList()) { city ->
+        Box(modifier = Modifier.fillMaxWidth().clickable { navController.navigate(route = "weather", args = city.asBundle) }) {
+          Text(text = listOf(city.name, city.country).joinToString(), fontSize = 20.sp, color = Color.DarkGray, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp))
+        }
       }
     }
   }
@@ -82,7 +88,9 @@ private fun StateCitiesContent(items: Collection<City>, viewModel: CitiesViewMod
 
 @Composable
 private fun StateError(viewModel: CitiesViewModel) {
-  Column(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+  Column(modifier = Modifier
+    .fillMaxWidth()
+    .fillMaxHeight()) {
     StateHeader(viewModel)
     Box(
       contentAlignment = Alignment.BottomCenter,
