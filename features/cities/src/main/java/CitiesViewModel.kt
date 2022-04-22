@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
@@ -36,13 +37,12 @@ class CitiesViewModel @Inject constructor(
   private val refreshSignal = MutableSharedFlow<Unit>()
   // Used to run flows on init and also on command
   private val loadDataSignal: Flow<Unit> = flow {
-    emit(Unit)
     emitAll(refreshSignal)
   }
 
   val uiState: StateFlow<CitiesUiModel> = merge(
     loadDataSignal,
-    citiesChangesInternal.debounce(500)
+    citiesChangesInternal.debounce(500).distinctUntilChanged()
   ).mapLatest { CitiesUiModel(isLoading = false, cities = citiesUseCase(citiesChangesInternal.value)) }
   .stateIn(viewModelScope, WhileViewSubscribed, CitiesUiModel(isLoading = true))
 

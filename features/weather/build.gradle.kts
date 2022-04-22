@@ -27,6 +27,7 @@ dependencies {
   implementation(project(":common:dispatchers:android"))
   //Compose
   implementation(Libs.ACTIVITY_COMPOSE)
+  implementation(Libs.GOOGLE_ACCOMPANIST_REFRESH)
   implementation(Libs.CORE_KTX)
   implementation(Libs.COMPOSE_RUNTIME)
   implementation(Libs.COMPOSE_TOOLING_PREVIEW)

@@ -17,6 +17,7 @@
 object Libs {
     const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:1.4.0"
     const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.4.0"
+    const val GOOGLE_ACCOMPANIST_REFRESH = "com.google.accompanist:accompanist-swiperefresh:0.24.7-alpha"
     const val COMPOSE_MATERIAL = "androidx.compose.material:material:1.1.1"
     const val COMPOSE_RUNTIME = "androidx.compose.runtime:runtime:1.1.1"
     const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling:1.1.1"

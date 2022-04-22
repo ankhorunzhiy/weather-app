@@ -16,9 +16,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,7 +36,20 @@ class WeatherViewModel @Inject constructor(
     emitAll(refreshSignal)
   }
 
+  private val pull = MutableSharedFlow<Boolean>()
+
+  private val pullSignal: Flow<Boolean> = flow {
+    emitAll(pull)
+  }
+
   val uiState: StateFlow<WeatherUIModel> = loadDataSignal.mapLatest {
     Content(city = args.name, country = args.country, weatherUseCase(WeatherParams(args.lat, args.lon)))
-  }.stateIn(viewModelScope, WhileViewSubscribed, Loading)
+  }.onEach { pull.emit(false) }.stateIn(viewModelScope, WhileViewSubscribed, Loading)
+
+  val isRefreshing: StateFlow<Boolean> = pullSignal.stateIn(viewModelScope, WhileViewSubscribed, false)
+
+  fun refresh() {
+    viewModelScope.launch { refreshSignal.emit(Unit) }
+    viewModelScope.launch { pull.emit(true) }
+  }
 }

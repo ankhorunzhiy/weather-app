@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.petproject.weatherapp.cities.domain.model.Weather
 import com.petproject.weatherapp.common.flowui.rememberWithLifecycle
 import com.petproject.weatherapp.common.usecase.data
@@ -30,7 +33,7 @@ import com.petproject.weatherapp.weather.WeatherUIModel.Loading
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel = hiltViewModel()) {
   val uiState by rememberWithLifecycle(viewModel.uiState).collectAsState(Loading)
-  (uiState as? Content)?.let { StateWeatherContent(it) }?: StateWeatherLoading()
+  (uiState as? Content)?.let { content -> StateWeatherContent(content, viewModel) }?: StateWeatherLoading()
 }
 
 @Composable
@@ -44,8 +47,14 @@ private fun StateWeatherLoading() {
 }
 
 @Composable
-private fun StateWeatherContent(state: Content) {
-  state.result.data?.let { data -> StateWeatherSuccess(state.city, state.country, data) }?: StateWeatherError()
+private fun StateWeatherContent(state: Content, viewModel: WeatherViewModel) {
+  val isRefreshing by viewModel.isRefreshing.collectAsState()
+  SwipeRefresh(
+    state = rememberSwipeRefreshState(isRefreshing),
+    onRefresh = { viewModel.refresh() },
+  ) {
+    state.result.data?.let { data -> StateWeatherSuccess(state.city, state.country, data) }?: StateWeatherError()
+  }
 }
 
 
@@ -65,5 +74,7 @@ private fun StateWeatherSuccess(city: String, country: String, weather: Weather)
 
 @Composable
 private fun StateWeatherError() {
-
+  Column(Modifier.verticalScroll(rememberScrollState())) {
+    // content
+  }
 }
