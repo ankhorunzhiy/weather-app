@@ -4,6 +4,7 @@ import com.petproject.weatherapp.cities.domain.model.Weather
 import com.petproject.weatherapp.cities.domain.model.WeatherParams
 import com.petproject.weatherapp.common.usecase.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
 
 class WeatherUseCase constructor(
   dispatcher: CoroutineDispatcher,

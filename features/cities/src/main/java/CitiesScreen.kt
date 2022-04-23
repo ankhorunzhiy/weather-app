@@ -32,12 +32,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextAlign.Companion
 import androidx.compose.ui.unit.dp
@@ -71,15 +73,23 @@ private fun StateLoading() {
 
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 private fun StateCitiesContent(items: Collection<City>, viewModel: CitiesViewModel, navController: NavController) {
+  val keyboardController = LocalSoftwareKeyboardController.current
   Column {
     StateHeader(viewModel)
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
       items(items.toList()) { city ->
-        Box(modifier = Modifier.fillMaxWidth().clickable { navController.navigate(route = "weather", args = city.asBundle) }) {
-          Text(text = listOf(city.name, city.country).joinToString(), fontSize = 20.sp, color = Color.DarkGray, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 10.dp))
+        Box(modifier = Modifier
+          .fillMaxWidth()
+          .clickable {
+            keyboardController?.hide()
+            navController.navigate(route = "weather", args = city.asBundle)
+          }) {
+          Text(text = listOf(city.name, city.country).joinToString(), fontSize = 20.sp, color = Color.DarkGray, modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp, vertical = 10.dp))
         }
       }
     }
@@ -106,15 +116,12 @@ private fun StateError(viewModel: CitiesViewModel) {
 @Composable
 private fun StateHeader(viewModel: CitiesViewModel) {
   val citiesTextChanges = viewModel.citiesChanges.collectAsState()
-  val focusRequester = FocusRequester()
+  val focusRequester = remember { FocusRequester() }
   LaunchedEffect(true) { focusRequester.requestFocus() }
   OutlinedTextField(
     value = citiesTextChanges.value,
     onValueChange = viewModel::setCityName,
     label = { Text("Choose city") },
-    modifier = Modifier
-      .focusRequester(focusRequester)
-      .fillMaxWidth()
-      .padding(16.dp)
+    modifier = Modifier.focusRequester(focusRequester).fillMaxWidth().padding(16.dp)
   )
 }
