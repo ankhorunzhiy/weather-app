@@ -1,10 +1,9 @@
 package com.petproject.weatherapp.weather
 
-import android.util.Log
-import androidx.compose.foundation.gestures.Orientation.Vertical
-import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +30,7 @@ import com.petproject.weatherapp.cities.domain.model.Weather
 import com.petproject.weatherapp.common.flowui.rememberWithLifecycle
 import com.petproject.weatherapp.common.usecase.data
 import com.petproject.weatherapp.weather.WeatherUIModel.Content
+import com.petproject.weatherapp.weather.WeatherUIModel.Error
 import com.petproject.weatherapp.weather.WeatherUIModel.Loading
 
 @Composable
@@ -38,6 +38,7 @@ fun WeatherScreen(viewModel: WeatherViewModel = hiltViewModel()) {
   val uiState by rememberWithLifecycle(viewModel.uiState).collectAsState(Loading)
   when(val state = uiState) { // smart cast uiState
     is Loading -> StateWeatherLoading()
+    is Error -> StateWeatherError(viewModel)
     is Content -> StateWeatherContent(state, viewModel)
     else -> error("Unknown ui state")
   }
@@ -55,17 +56,8 @@ private fun StateWeatherLoading() {
 
 @Composable
 private fun StateWeatherContent(state: Content, viewModel: WeatherViewModel) {
-  val isRefreshing by viewModel.isRefreshing.collectAsState()
-  SwipeRefresh(
-    state = rememberSwipeRefreshState(isRefreshing),
-    onRefresh = { viewModel.refresh() },
-    indicator = { stateRefresh, trigger -> SwipeRefreshIndicator(
-      state = stateRefresh,
-      refreshTriggerDistance = trigger,
-      contentColor = MaterialTheme.colors.primaryVariant)
-    }
-  ) {
-    state.result.data?.let { data -> StateWeatherSuccess(state.city, state.country, data) }?: StateWeatherError()
+  Refreshable(viewModel = viewModel) {
+    StateWeatherSuccess(state.city, state.country, state.weather)
   }
 }
 
@@ -101,8 +93,26 @@ private fun StateWeatherSuccess(city: String, country: String, weather: Weather)
 }
 
 @Composable
-private fun StateWeatherError() {
-  Column(Modifier.verticalScroll(rememberScrollState())) {
-    // content
+private fun StateWeatherError(viewModel: WeatherViewModel) {
+  Refreshable(viewModel = viewModel) {
+    Column(Modifier.fillMaxWidth().fillMaxHeight().verticalScroll(rememberScrollState()),
+      verticalArrangement = Arrangement.Center,
+      horizontalAlignment = Alignment.CenterHorizontally) {
+      Text(text = "Ops, some error")
+    }
   }
+}
+
+@Composable
+private fun Refreshable(viewModel: WeatherViewModel, content: @Composable () -> Unit) {
+  val isRefreshing by viewModel.isRefreshing.collectAsState()
+  SwipeRefresh(
+    state = rememberSwipeRefreshState(isRefreshing),
+    onRefresh = { viewModel.refresh() },
+    indicator = { stateRefresh, trigger -> SwipeRefreshIndicator(
+      state = stateRefresh,
+      refreshTriggerDistance = trigger,
+      contentColor = MaterialTheme.colors.primaryVariant)
+    }
+  ) { content() }
 }
